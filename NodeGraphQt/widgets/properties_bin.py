@@ -1,7 +1,7 @@
 #!/usr/bin/python
-from NodeGraphQt import QtWidgets, QtCore, QtGui, QtCompat
+from .. import QtWidgets, QtCore, QtGui, QtCompat
 
-from NodeGraphQt.widgets.properties import NodePropWidget
+from .properties import NodePropWidget
 
 
 class PropertiesDelegate(QtWidgets.QStyledItemDelegate):
@@ -42,12 +42,16 @@ class PropertiesList(QtWidgets.QTableWidget):
         self.setItemDelegate(PropertiesDelegate())
         self.setColumnCount(1)
         self.setShowGrid(False)
-        QtCompat.QHeaderView.setSectionResizeMode(
-            self.verticalHeader(), QtWidgets.QHeaderView.ResizeToContents)
         self.verticalHeader().hide()
-        QtCompat.QHeaderView.setSectionResizeMode(
-            self.horizontalHeader(), 0, QtWidgets.QHeaderView.Stretch)
         self.horizontalHeader().hide()
+        # QtCompat.setSectionResizeMode(self.horizontalHeader(), QtWidgets.QHeaderView.Fixed)
+        self.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+        self.verticalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+        self.setVerticalScrollMode(QtWidgets.QAbstractItemView.ScrollPerPixel)
+
+    def wheelEvent(self, event):
+        delta = event.delta() * 0.2
+        self.verticalScrollBar().setValue(self.verticalScrollBar().value() - delta)
 
 
 class PropertiesBinWidget(QtWidgets.QWidget):
@@ -250,13 +254,13 @@ class PropertiesBinWidget(QtWidgets.QWidget):
 
 if __name__ == '__main__':
     import sys
-    from NodeGraphQt import BaseNode, NodeGraph
-    from NodeGraphQt.constants import (NODE_PROP_QLABEL,
-                                       NODE_PROP_QLINEEDIT,
-                                       NODE_PROP_QCOMBO,
-                                       NODE_PROP_QSPINBOX,
-                                       NODE_PROP_COLORPICKER,
-                                       NODE_PROP_SLIDER)
+    from .. import BaseNode, NodeGraph
+    from ..constants import (NODE_PROP_QLABEL,
+                            NODE_PROP_QLINEEDIT,
+                            NODE_PROP_QCOMBO,
+                            NODE_PROP_QSPINBOX,
+                            NODE_PROP_COLORPICKER,
+                            NODE_PROP_SLIDER)
 
 
     class TestNode(BaseNode):

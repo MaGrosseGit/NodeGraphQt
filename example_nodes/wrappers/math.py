@@ -1,32 +1,37 @@
 from math import *
 
-_pi = pi
-_e = e
-_tau = tau
-_inf = inf
-_nan = nan
+# _pi = pi
+# _e = e
+# _tau = tau
+# _inf = inf
+# _nan = nan
 
 # add contants as functions
 
 
-def pi():
-    return _pi
-
-
-def e():
-    return _e
-
-
-def tau():
-    return _tau
-
-
-def inf():
-    return _inf
-
-
-def nan():
-    return _nan
+# def pi():
+#     print('pi', _pi)
+#     return _pi
+#
+#
+# def e():
+#     print('e', _e)
+#     return _e
+#
+#
+# def tau():
+#     print('tau', _tau)
+#     return _tau
+#
+#
+# def inf():
+#     print('inf', _inf)
+#     return _inf
+#
+#
+# def nan():
+#     print('nan', _nan)
+#     return _nan
 
 
 # add basic math functions to math library

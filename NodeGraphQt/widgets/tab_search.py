@@ -197,8 +197,10 @@ class TabSearchMenuWidget(QtWidgets.QLineEdit):
         node_types = sorted(self._node_dict.values())
 
         self._menus.clear()
-        self._actions.clear()
-        self._searched_actions.clear()
+        # self._actions.clear()
+        self._actions[:] = []
+        # self._searched_actions.clear()
+        self._searched_actions[:] = []
 
         for node_type in node_types:
             menu_name = ".".join(node_type.split(".")[:-1])

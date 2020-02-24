@@ -76,24 +76,24 @@ example code:
 try:
     from Qt import QtWidgets, QtGui, QtCore, QtCompat, QtOpenGL
 except ImportError as ie:
-    from .vendor.Qt import __version__ as qtpy_ver
-    from .vendor.Qt import QtWidgets, QtGui, QtCore, QtCompat ,QtOpenGL
-    print('Cannot import "Qt.py" module falling back on '
-          '"NodeGraphQt.vendor.Qt ({})"'.format(qtpy_ver))
+    from NodeGraphQt.vendor.Qt import __version__ as qtpy_ver
+    from NodeGraphQt.vendor.Qt import QtWidgets, QtGui, QtCore, QtCompat ,QtOpenGL
+    print('Cannot import "Qt.py" module falling back on "NodeGraphQt.vendor.Qt ({})"'.format(qtpy_ver))
 
-from .base.graph import NodeGraph
-from .base.menu import NodesMenu, NodeGraphMenu, NodeGraphCommand
-from .base.node import NodeObject, BaseNode, BackdropNode
-from .base.port import Port
-from .pkg_info import __version__ as VERSION
-from .pkg_info import __license__ as LICENSE
+
+from NodeGraphQt.base.graph import NodeGraph
+from NodeGraphQt.base.menu import NodesMenu, NodeGraphMenu, NodeGraphCommand
+from NodeGraphQt.base.node import NodeObject, BaseNode, BackdropNode
+from NodeGraphQt.base.port import Port
+from NodeGraphQt.pkg_info import __version__ as VERSION
+from NodeGraphQt.pkg_info import __license__ as LICENSE
 
 # functions
-from .base.utils import setup_context_menu
+from NodeGraphQt.base.utils import setup_context_menu
 
 # widgets
-from .widgets.node_tree import NodeTreeWidget
-from .widgets.properties_bin import PropertiesBinWidget
+from NodeGraphQt.widgets.node_tree import NodeTreeWidget
+from NodeGraphQt.widgets.properties_bin import PropertiesBinWidget
 
 __version__ = VERSION
 __all__ = [

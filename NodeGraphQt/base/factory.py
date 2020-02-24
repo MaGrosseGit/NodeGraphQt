@@ -101,4 +101,5 @@ class NodeFactory(object):
         """
         self.__nodes.clear()
         self.__names.clear()
-        self.__aliases.clear()
+        # self.__aliases.clear()
+        self.__aliases[:] = []

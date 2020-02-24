@@ -43,7 +43,7 @@ class QWidgetDrops(QtWidgets.QWidget):
             for url in event.mimeData().urls():
                 self.import_session(url.toLocalFile())
         else:
-            e.ignore()
+            event.ignore()
 
 
 class NodeGraph(QtCore.QObject):
@@ -119,6 +119,7 @@ class NodeGraph(QtCore.QObject):
     :parameters: :str
     :emits: new session path
     """
+
     def __init__(self, parent=None):
         super(NodeGraph, self).__init__(parent)
         self.setObjectName('NodeGraphQt')
@@ -204,7 +205,7 @@ class NodeGraph(QtCore.QObject):
         node = self.get_node_by_id(node_id)
 
         # prevent signals from causing a infinite loop.
-        _exc = [float, int , str, bool, None]
+        _exc = [float, int, str, bool, None]
         if node.get_property(prop_name) != prop_value:
             if type(node.get_property(prop_name)) in _exc:
                 value = prop_value
@@ -351,8 +352,8 @@ class NodeGraph(QtCore.QObject):
         if self._widget is None:
             self._widget = QWidgetDrops()
             self._widget.import_session = self.import_session
-            
-                        layout = QtWidgets.QVBoxLayout(self._widget)
+
+            layout = QtWidgets.QVBoxLayout(self._widget)
             layout.setContentsMargins(0, 0, 0, 0)
             layout.addWidget(self._viewer)
         return self._widget
@@ -774,7 +775,7 @@ class NodeGraph(QtCore.QObject):
                 node_attrs[node.type_][pname].update(pattrs)
             self.model.set_node_common_properties(node_attrs)
 
-        node._graph = self
+        node.set_graph(self)
         node.NODE_NAME = self.get_unique_name(node.NODE_NAME)
         node.model._graph_model = self.model
         node.model.name = node.NODE_NAME
@@ -1006,6 +1007,7 @@ class NodeGraph(QtCore.QObject):
 
                 nodes[n_id] = node
                 self.add_node(node, n_data.get('pos'))
+                node.set_graph(self)
 
         # build the connections.
         for connection in data.get('connections', []):
@@ -1086,7 +1088,7 @@ class NodeGraph(QtCore.QObject):
         Args:
             file_path (str): path to the serialized layout file.
         """
-        
+
         file_path = file_path.strip()
         if not os.path.isfile(file_path):
             raise IOError('file does not exist.')
