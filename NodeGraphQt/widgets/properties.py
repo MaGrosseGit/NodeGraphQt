@@ -1,4 +1,5 @@
 #!/usr/bin/python
+from copy import deepcopy
 from collections import defaultdict
 
 from .. import QtWidgets, QtCore, QtGui
@@ -613,6 +614,10 @@ class PropVector(BaseProperty):
     def _on_value_change(self, value=None, index=None):
         if self._can_emit:
             if index is not None:
+                if isinstance(self._value, tuple):
+                    temp_val = list(self._value)
+                    temp_val[index] = value
+                    self._value = temp_val
                 self._value[index] = value
             self.value_changed.emit(self.toolTip(), self._value)
         self.value_changed.emit(self.toolTip(), self._value)
@@ -627,7 +632,7 @@ class PropVector(BaseProperty):
 
     def set_value(self, value):
         if value != self.get_value():
-            self._value = value.copy()
+            self._value = value.copy() if not isinstance(value, tuple) else deepcopy(value)
             self._can_emit = False
             self._update_items()
             self._can_emit = True

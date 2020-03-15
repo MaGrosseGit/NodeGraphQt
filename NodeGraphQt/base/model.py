@@ -1,6 +1,6 @@
 #!/usr/bin/python
 import json
-from collections import defaultdict
+from collections import defaultdict, OrderedDict
 
 from ..constants import (NODE_PROP,
                         NODE_PROP_QLABEL,
@@ -63,7 +63,7 @@ class NodeModel(object):
         self.pos = [0.0, 0.0]
         self.inputs = {}
         self.outputs = {}
-        self._custom_prop = {}
+        self._custom_prop = OrderedDict({})
 
         # node graph model set at node added time.
         self._graph_model = None
