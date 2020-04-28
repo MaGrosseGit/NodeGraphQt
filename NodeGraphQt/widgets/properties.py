@@ -612,14 +612,14 @@ class PropVector(BaseProperty):
         self._items.append(_ledit)
 
     def _on_value_change(self, value=None, index=None):
-        if self._can_emit:
-            if index is not None:
-                if isinstance(self._value, tuple):
-                    temp_val = list(self._value)
-                    temp_val[index] = value
-                    self._value = temp_val
-                self._value[index] = value
-            self.value_changed.emit(self.toolTip(), self._value)
+        if not self._can_emit:
+            return
+        if index is not None and isinstance(self._value, tuple):
+            temp_val = list(self._value)
+            temp_val[index] = value
+            self._value = temp_val
+        if index is not None:
+            self._value[index] = value
         self.value_changed.emit(self.toolTip(), self._value)
 
     def _update_items(self):
