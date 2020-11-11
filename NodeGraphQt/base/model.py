@@ -150,8 +150,7 @@ class NodeModel(object):
         elif name in self._custom_prop.keys():
             self._custom_prop[name] = value
         else:
-            # self._custom_prop[name] = value
-            raise NodePropertyError('No property "{}"'.format(name))
+            self.add_property(name, value)
 
     def get_property(self, name):
         if name in self.properties.keys():

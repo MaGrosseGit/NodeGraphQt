@@ -46,8 +46,11 @@ class PropertiesList(QtWidgets.QTableWidget):
         self.horizontalHeader().hide()
         # QtCompat.setSectionResizeMode(self.horizontalHeader(), QtWidgets.QHeaderView.Fixed)
         self.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
-        self.verticalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+        self.verticalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
         self.setVerticalScrollMode(QtWidgets.QAbstractItemView.ScrollPerPixel)
+
+        # self.setVerticalScrollBar(QtWidgets.QScrollBar(QtCore.Qt.Vertical))
+        self.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
 
     def wheelEvent(self, event):
         delta = event.delta() * 0.2
@@ -97,9 +100,10 @@ class PropertiesBinWidget(QtWidgets.QWidget):
         top_layout.addWidget(self.btn_lock)
         top_layout.addWidget(btn_clr)
 
-        layout = QtWidgets.QVBoxLayout(self)
-        layout.addLayout(top_layout)
-        layout.addWidget(self._prop_list, 1)
+        base_layout = QtWidgets.QVBoxLayout()
+        base_layout.addLayout(top_layout)
+        base_layout.addWidget(self._prop_list, 1)
+        self.setLayout(base_layout)
 
         # wire up node graph.
         node_graph.add_properties_bin(self)
